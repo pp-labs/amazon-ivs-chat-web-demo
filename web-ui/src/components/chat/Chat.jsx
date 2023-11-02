@@ -489,11 +489,11 @@ const Chat = () => {
     return (
       <div className='chat-line-wrapper' key={message.id}>
         <div className='chat-line'>
-          <img
+          {/* <img
             className='chat-line-img'
             src={message.avatar}
             alt={`Avatar for ${message.username}`}
-          />
+          /> */}
           <p>
             <span className='username'>{message.username}</span>
             <Linkify
@@ -556,7 +556,7 @@ const Chat = () => {
       username: '',
       userId: '',
       avatar: '',
-      message: `Connected to the chat room.`,
+      message: `Mit dem Chat verbunden.`,
     };
     setMessages((prevState) => {
       return [...prevState, status];
@@ -570,9 +570,6 @@ const Chat = () => {
 
   return (
     <>
-      <header>
-        <h1>Amazon IVS Chat Web Demo</h1>
-      </header>
       <div className='main full-width full-height chat-container'>
         <div className='content-wrapper mg-2'>
           <VideoPlayer
@@ -593,7 +590,7 @@ const Chat = () => {
                   type='text'
                   placeholder={
                     isChatConnected()
-                      ? 'Say something'
+                      ? 'Ihre Nachricht'
                       : 'Waiting to connect...'
                   }
                   value={message}
@@ -617,7 +614,7 @@ const Chat = () => {
                       onClick={handleOnClick}
                       className='btn btn--primary full-width rounded'
                     >
-                      Join the chat room
+                      Dem Chat beitreten
                     </button>
                   </fieldset>
                 )}

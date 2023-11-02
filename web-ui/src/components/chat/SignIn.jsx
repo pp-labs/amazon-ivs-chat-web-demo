@@ -19,11 +19,11 @@ const SignIn = ({ handleSignIn }) => {
   return (
     <div className="modal pos-absolute top-0 bottom-0">
       <div className="modal__el">
-        <h1 className="mg-b-2">Join the chat room</h1>
+        <h1 className="mg-b-2">Dem Chat beitreten</h1>
         <form onSubmit={(e) => {e.preventDefault()}}>
           <fieldset>
             <label htmlFor="name" className="mg-b-05">
-              Username
+              Name im Chat
             </label>
             <input
               name="name"
@@ -31,7 +31,7 @@ const SignIn = ({ handleSignIn }) => {
               ref={inputRef}
               type="text"
               className="radius"
-              placeholder="Type here..."
+              placeholder="Hier eingeben..."
               autoComplete="off"
               value={username}
               onChange={(e) => {
@@ -40,7 +40,7 @@ const SignIn = ({ handleSignIn }) => {
               }}
             />
             <hr />
-            <div className="mg-b-05 label">Select Avatar</div>
+            {/* <div className="mg-b-05 label">Select Avatar</div>
             <div className="item-select-container pd-1 mg-b-1">
               <div className="avatars pos-relative item-select-grid">
                 <Avatars
@@ -50,7 +50,7 @@ const SignIn = ({ handleSignIn }) => {
                   }}
                 />
               </div>
-            </div>
+              </div> 
             <hr />
             <div className="fl fl-a-center fl-j-start full-width">
               <input
@@ -64,7 +64,7 @@ const SignIn = ({ handleSignIn }) => {
                 }}
               />
               <label htmlFor="moderator">Join as moderator</label>
-            </div>
+            </div>*/}
             <hr />
             <button
               onClick={(e) => {
@@ -73,7 +73,7 @@ const SignIn = ({ handleSignIn }) => {
               className="btn btn--primary rounded mg-t-1"
               disabled={!username}
             >
-              Start chatting
+              Chat starten
             </button>
           </fieldset>
         </form>
