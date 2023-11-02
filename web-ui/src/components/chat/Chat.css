@@ -169,6 +169,16 @@
   background: var(--color-bg-button-focus);
 }
 
+.send-message-btn {
+  fill: var(--color--positive);
+}
+
+.send-message-btn:focus {
+  fill: var(--color--positive);
+  background-color: buttonface;
+  border-color: transparent;
+}
+
 /* Chat */
 .chat-wrapper {
   position: absolute;

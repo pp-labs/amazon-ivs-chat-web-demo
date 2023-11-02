@@ -19,6 +19,7 @@ import VideoPlayer from '../videoPlayer/VideoPlayer';
 import SignIn from './SignIn';
 import StickerPicker from './StickerPicker';
 import RaiseHand from './RaiseHand';
+import SendButton from './SendButton';
 
 // Styles
 import './Chat.css';
@@ -38,6 +39,17 @@ const Chat = () => {
   const chatRef = createRef();
   const messagesEndRef = createRef();
 
+  var url = window.location.href;
+  var urlSegments = url.split('/');
+  var videoId = Number(urlSegments[urlSegments.length - 1]);
+  
+  if (isNaN(videoId)) {
+    videoId = 1;
+  }
+
+  let playbackUrl = config.PLAYBACK_URLS[videoId - 1]
+  let chatRoomId = config.CHAT_ROOM_IDS[videoId - 1]
+
   // Fetches a chat token
   const tokenProvider = async (selectedUsername, isModerator, avatarUrl) => {
     const uuid = uuidv4();
@@ -46,7 +58,7 @@ const Chat = () => {
       : ['SEND_MESSAGE'];
 
     const data = {
-      arn: config.CHAT_ROOM_ID,
+      arn: chatRoomId,
       userId: `${selectedUsername}.${uuid}`,
       attributes: {
         username: `${selectedUsername}`,
@@ -270,12 +282,16 @@ const Chat = () => {
     setMessage(e.target.value);
   };
 
+  const sendMessageAndClear = () => {
+    if (message) {
+      sendMessage(message);
+      setMessage('');
+    }
+  };
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      if (message) {
-        sendMessage(message);
-        setMessage('');
-      }
+      sendMessageAndClear();
     }
   };
 
@@ -389,7 +405,7 @@ const Chat = () => {
 
   const sendEvent = async (data) => {
     const formattedData = {
-      arn: config.CHAT_ROOM_ID,
+      arn: chatRoomId,
       eventName: `${data.eventName}`,
       eventAttributes: data.eventAttributes,
     };
@@ -471,11 +487,11 @@ const Chat = () => {
   const renderStickerMessage = (message) => (
     <div className='chat-line-sticker-wrapper' key={message.timestamp}>
       <div className='chat-line chat-line--sticker' key={message.timestamp}>
-        <img
+        {/* <img
           className='chat-line-img'
           src={message.avatar}
           alt={`Avatar for ${message.username}`}
-        />
+        /> */}
         <p>
           <span className='username'>{message.username}</span>
         </p>
@@ -575,7 +591,7 @@ const Chat = () => {
           <VideoPlayer
             usernameRaisedHand={usernameRaisedHand}
             showRaiseHandPopup={showRaiseHandPopup}
-            playbackUrl={config.PLAYBACK_URL}
+            playbackUrl={playbackUrl}
           />
           <div className='col-wrapper'>
             <div className='chat-wrapper'>
@@ -599,6 +615,9 @@ const Chat = () => {
                   onChange={handleChange}
                   onKeyDown={handleKeyDown}
                 />
+                {isChatConnected() && (
+                  <SendButton handleSendMessage={sendMessageAndClear} />
+                )}
                 {isChatConnected() && (
                   <StickerPicker handleStickerSend={handleStickerSend} />
                 )}
