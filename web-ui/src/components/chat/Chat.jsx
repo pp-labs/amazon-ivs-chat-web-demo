@@ -43,9 +43,11 @@ const Chat = () => {
   var urlSegments = url.split('/');
   var videoId = Number(urlSegments[urlSegments.length - 1]);
   
-  if (isNaN(videoId)) {
+  if (!videoId || isNaN(videoId)) {
     videoId = 1;
-  }
+  } 
+  
+  document.title = `Live ${videoId}`;
 
   let playbackUrl = config.PLAYBACK_URLS[videoId - 1]
   let chatRoomId = config.CHAT_ROOM_IDS[videoId - 1]
@@ -607,7 +609,7 @@ const Chat = () => {
                   placeholder={
                     isChatConnected()
                       ? 'Ihre Nachricht'
-                      : 'Waiting to connect...'
+                      : 'Verbindung wird hergestellt...'
                   }
                   value={message}
                   maxLength={500}
@@ -618,7 +620,7 @@ const Chat = () => {
                 {isChatConnected() && (
                   <SendButton handleSendMessage={sendMessageAndClear} />
                 )}
-                {isChatConnected() && (
+                {/*isChatConnected() && (
                   <StickerPicker handleStickerSend={handleStickerSend} />
                 )}
                 {isChatConnected() && (
@@ -626,7 +628,7 @@ const Chat = () => {
                     isRaised={handRaised}
                     handleRaiseHandSend={handleRaiseHandSend}
                   />
-                )}
+                )*/}
                 {!username && (
                   <fieldset>
                     <button
